@@ -13,7 +13,6 @@
 
 package com.strobel.assembler.metadata;
 
-import com.strobel.assembler.ir.ClassFileReader;
 import com.strobel.reflection.SimpleType;
 import com.strobel.util.ContractUtils;
 
@@ -58,7 +57,7 @@ public final class BuiltinTypes {
         Object = object;
 
         final ClassFileReader reader = ClassFileReader.readClass(metadataSystem, buffer);
-        final TypeDefinitionBuilder builder = new TypeDefinitionBuilder();
+        final TypeDefinitionBuilder builder = new TypeDefinitionBuilder(object);
 
         reader.accept(builder);
     }

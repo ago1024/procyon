@@ -15,6 +15,7 @@ package com.strobel.decompiler.ast;
 
 import com.strobel.core.Predicate;
 import com.strobel.decompiler.ITextOutput;
+import com.strobel.decompiler.PlainTextOutput;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,23 @@ import java.util.List;
 
 public abstract class Node {
     public abstract void writeTo(final ITextOutput output);
+
+    @Override
+    public String toString() {
+        final PlainTextOutput output = new PlainTextOutput();
+        writeTo(output);
+        return output.toString();
+    }
+
+    public final boolean isConditionalControlFlow() {
+        return this instanceof Expression &&
+               ((Expression)this).getCode().isConditionalControlFlow();
+    }
+
+    public final boolean isUnconditionalControlFlow() {
+        return this instanceof Expression &&
+               ((Expression)this).getCode().isUnconditionalControlFlow();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Enumeration Methods">
 
